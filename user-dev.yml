@@ -1,0 +1,37 @@
+server:
+  port: 9001
+    
+spring:
+  dataSource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cloud?characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+  application: 
+    #名称，暂时没用，springcloud使用
+    name : miscroservice-user
+  profiles:
+    active: dev
+
+  jpa:
+    show-sql: true
+    database : mysql #jpa连接的数据库类型
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect #MySql默认引擎不支持事务控制，InnoDB才支持
+    hibernate:
+      ddl-auto: update
+eureka: 
+  client:
+    fetch-registry: true  #是否需要把从eureka获取注册信息，调用方必须true
+    register-with-eureka: true #是否需要把该服务注册到eureka，服务提供方必须是true
+    service-url: #客户端注册地址，可配置多个服务端
+      defaultZone: http://116.62.146.57:9000/eureka #,http://localhost:8999/eureka     
+  instance: 
+    #优先使用该服务的ip地址注册到eureka，生产环境建议true
+    prefer-ip-address: true 
+    
+    # 心跳参数
+    # 服务续约的间隔，默认30s
+    lease-renewal-interval-in-seconds: 30
+    # 服务失效时间，默认90s
+    lease-expiration-duration-in-seconds: 10
+    

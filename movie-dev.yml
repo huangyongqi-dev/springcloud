@@ -1,0 +1,31 @@
+server: 
+  port: 9002  
+spring:
+  dataSource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cloud?characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+  application: 
+    name : miscroservice-movie
+
+      
+eureka: 
+  client:
+    fetch-registry: true  #是否需要把从eureka获取注册信息，调用方必须true
+    register-with-eureka: true #是否需要把该服务注册到eureka，服务提供方必须是true
+    # 获取服务注册信息间隔并更新注册信息，默认30s
+    registry-fetch-interval-seconds: 5
+    service-url: #客户端注册地址，可配置多个服务端
+      defaultZone: http://116.62.146.57:9000/eureka #,http://localhost:8999/eureka    
+  instance: 
+    prefer-ip-address: true #优先使用该服务的ip地址注册到eureka  
+    
+#修改Ribbon的负载均衡算法,改成随机算法，负载随机的类名，只要把服务名配置相应的类名就可以改变算法
+#miscroservice-user: 
+  #ribbon: 
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+# 开启Hystrix
+feign:
+  hystrix:
+    enabled: true     
